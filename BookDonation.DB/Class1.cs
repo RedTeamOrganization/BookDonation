@@ -9,4 +9,6 @@ namespace BookDonation.DB
     public class Class1
     {
     }
+
+    //This is a test by Sam
 }
