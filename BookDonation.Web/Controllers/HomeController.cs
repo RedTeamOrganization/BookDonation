@@ -22,7 +22,7 @@ namespace BookDonation.Web.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "CONTACT US";
 
             return View();
         }
