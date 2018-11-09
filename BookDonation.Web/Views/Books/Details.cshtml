@@ -1,0 +1,82 @@
+﻿@model BookDonation.DB.Models.Books
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Books</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GenreId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GenreId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISBN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityReserved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityReserved)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
