@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BookDonation.DB;
-using BookDonation.DB.Models;
 
 namespace BookDonation.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller 
     {
-        private BookDonationDB db = new BookDonationDB();
-
-        // GET: Actions
         public ActionResult Index()
         {
             return View(db.Action.ToList());
@@ -57,6 +52,24 @@ namespace BookDonation.Web.Controllers
             ViewBag.Message = "CONTACT US";
 
             return View();
+        }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(string searchString)
+        {
+            var books = from b in db.Book select b;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title.Contains(searchString));
+            }
+            return View(books);
         }
     }
 }
