@@ -295,6 +295,7 @@
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\Transactions\Edit.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
+    <Content Include="Views\Home\RequestABook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
