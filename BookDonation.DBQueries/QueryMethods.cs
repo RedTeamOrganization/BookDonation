@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookDonation.Business
+namespace BookDonation.DBQueries
 {
-    public class Class1
+    public class QueryMethods
     {
+
     }
 }
