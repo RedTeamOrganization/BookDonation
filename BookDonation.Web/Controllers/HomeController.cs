@@ -109,7 +109,7 @@ namespace BookDonation.Web.Controllers
             return View(model);
             
         }
-       
+
 
 
         public ActionResult About()
@@ -151,80 +151,5 @@ namespace BookDonation.Web.Controllers
 
             return View();
         }
-
-        public ActionResult Search()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Search(string searchString)
-        {
-            var books = from b in db.Book select b;
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                books = books.Where(s => s.Title.Contains(searchString));
-            }
-            return View(books);
-        }
-
-        //public ActionResult DonateBook()
-        //{
-        //    ViewBag.Message = "Donate a Book";
-        //    ViewBag.GenreID = new SelectList(db.Genre, "Id", "Name");
-
-
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DonateBook([Bind(Include = "Id,UserId,GenreId,AuthorId,Title,ISBN,Image,NumBookDonated")] DonateVM donatevm)
-        //{
-        //    //var userId = db.Users.Find(User.Identity.GetUserId());
-
-        //    //var product = new Product
-        //    //{
-        //    //    SKU = addProduct.Sku,
-        //    //    Name = addProduct.Name,
-        //    //    AlertThreshHold = addProduct.AlertThreshHold,
-        //    //    CreatedByDate = DateTime.Now,
-        //    //    CreatedById = userId,
-        //    //    ProductInventories = new List<ProductInventory>()
-        //    //};
-        //    if (ModelState.IsValid)
-        //    {
-        //        var userId = db.Book.Find(User.Identity.Name);
-        //        var book = new Books
-        //        {
-        //            UserId = donatevm.UserId,
-        //            GenreId = donatevm.GenreId,
-        //            AuthorId = donatevm.AuthorId,
-        //            Title = donatevm.Title,
-        //            ISBN = donatevm.ISBN,
-        //            Image = donatevm.Image
-
-        //        };
-
-        //        //db..Add(donatevm);
-        //        db.Book.Add(book);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(donatevm);
-        //}
-
-            public ActionResult DonateSuccess()
-        {
-            ViewBag.Message = "Your Donation is successful...Thank you for Donating";
-
-            return View();
-        }
-
-
-
     }
 }
