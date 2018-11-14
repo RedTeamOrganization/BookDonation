@@ -60,20 +60,22 @@ namespace BookDonation.Web.Controllers
 
         public ActionResult Search()
         {
-            return View();
+            var books = from b in db.Book select b;
+
+            //if (!string.IsNullOrEmpty(searchString))
+            //{
+            //    books = books.Where(s => s.Title.Contains(searchString));
+            //}
+
+            return View(books);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Search(string searchString)
         {
-            var books = from b in db.Book select b;
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                books = books.Where(s => s.Title.Contains(searchString));
-            }
-            return View(books);
+            //Add code here
+            return View();
         }
     }
 }
