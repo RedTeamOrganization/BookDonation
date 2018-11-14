@@ -1,0 +1,23 @@
+﻿@model BookDonation.DB.Models.Books
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    //the following are search options
+    <b> Search Option: </b>
+    @Html.RadioButton("option", "Title")
+    <text>Title</text>
+    @Html.RadioButton("option", "Author")
+    <text> Author </text>
+    @Html.RadioButton("option", "ISBN") <text>ISBN</text>
+    @Html.TextBox("search") 
+    <input type = "submit"    
+     name = "submit"
+     value = "Search" />
+} 
