@@ -119,6 +119,24 @@ namespace BookDonation.Web.Controllers
             return View();
         }
 
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(string searchString)
+        {
+            var books = from b in db.Book select b;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title.Contains(searchString));
+            }
+            return View(books);
+        }
+
 
         // GET: Books/RequestABook
         public ActionResult RequestABook()
