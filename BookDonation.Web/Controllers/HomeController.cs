@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BookDonation.DB.Models;
 using BookDonation.Web.ViewModels;
 using BookDonation.Web.Repository;
+using System.Net;
 
 namespace BookDonation.Web.Controllers
 {
@@ -138,28 +138,69 @@ namespace BookDonation.Web.Controllers
         }
 
 
-        // GET: Books/RequestABook
+      
+        [Route("RequestABook")]
+        [HttpGet]
         public ActionResult RequestABook()
         {
-            return View();
+            var content = db.Book.Select(s => new
+            {
+                s.Id,
+                s.UserId,
+                s.GenreId,
+                s.AuthorId,
+                s.Title,
+                s.ISBN,
+                s.Image,
+                s.QuantityAvailable,
+                s.QuantityReserved
+
+            });
+            List<DonateVM> donateModel = content.Select(item => new DonateVM()
+            {
+                Id = item.Id,
+                //UserId =item.UserId,
+                Title = item.Title,
+                Image = item.Image,
+                ISBN = item.ISBN,
+                GenreId = item.GenreId,
+                AuthorId = item.AuthorId
+
+            }).ToList();
+            return View(donateModel);
         }
 
-        // POST: Books/RequestABook
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RequestABook([Bind(Include = "GenreId,AuthorId,Title,ISBN")] Books books)
+
+
+        // GET: Movies/Cart/5
+        public ActionResult Cart(int? id)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Book.Add(books);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Books books = db.Book.Find(id);
+            if (books == null)
+            {
+                return HttpNotFound();
             }
 
-            return View(books);
+           DonateVM vm = new DonateVM();
+            vm.GenreId = books.GenreId;
+            vm.AuthorId = vm.AuthorId;
+            vm.Title = books.Title;
+            vm.ISBN = vm.ISBN;
+
+
+            return View(vm);
+
+
+            //Calculator cl = new Calculator();
+            //ViewBag.Tax = cl.CalTax(movie.Price);
+            //ViewBag.Total = cl.CalTotal(movie.Price);
+            //return View("~/Views/Movies/Cart.cshtml", movie);
         }
+
 
 
 
