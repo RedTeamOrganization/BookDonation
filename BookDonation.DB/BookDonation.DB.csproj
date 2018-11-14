@@ -53,6 +53,10 @@
     <Compile Include="Migrations\201811092038117_InitialCreate.Designer.cs">
       <DependentUpon>201811092038117_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811131531396_RenameFields.cs" />
+    <Compile Include="Migrations\201811131531396_RenameFields.Designer.cs">
+      <DependentUpon>201811131531396_RenameFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Actions.cs" />
     <Compile Include="Models\Authors.cs" />
@@ -69,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811092038117_InitialCreate.resx">
       <DependentUpon>201811092038117_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811131531396_RenameFields.resx">
+      <DependentUpon>201811131531396_RenameFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

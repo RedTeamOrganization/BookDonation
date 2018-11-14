@@ -1,11 +1,66 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<BookDonation.Web.ViewModels.DonateVM>
+@{
+    ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    <h1>RED TEAM BOOK EXCHANGE SYSTEM</h1>
-    <img src="\images\homepagepic.gif" width="600" heigth="150" />
-    <p class="lead">RED TEAM BOOK DONATION SYSTEM is a platform for book exchange.You can donate or request a book at this site.</p>
-    <p>Events Calendar</p>
-</div>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Donate New Book", "DonateBook", null, new { @class = "btn btn-primary" })
+</p>
+
+<br />
+<table class="table" style="width: 1200px;">
+    <tr>
+
+        <th>
+            <b>GenreId</b>
+        </th>
+        <th>
+            <b>AuthorId</b>
+        </th>
+        <th>
+            <b>Title</b>
+        </th>
+        <th>
+            <b>ISBN</b>
+        </th>
+        <th>
+            <b>NumBookDonated</b>
+        </th>
+        <th>
+            <b>Image</b>
+        </th>
+        
+    </tr>
+    
+    @foreach (var item in Model)
+    {
+    <tr>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.GenreId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISBN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumBookDonated)
+        </td>
+        <td>
+            <img src="/Home/RetrieveImage/@item.Id" alt="" height=50 width=50 />
+        </td>
+
+        
+    </tr>
+    }
+</table>
+
 

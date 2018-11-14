@@ -6,19 +6,50 @@
 
 <h2>Create</h2>
 
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/adapters/jquery.js"></script>
 
-@using (Html.BeginForm()) 
+<script type="text/javascript">
+    function fileCheck(obj) {
+        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
+        }
+    }
+</script>
+
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>Books</h4>
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@*<p>
+    @Html.ActionLink("Donate New Book", "DonateBook", null, new { @class = "btn btn-primary" })
+</p>*@
 
+<br />
+    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.GenreID, "GenreID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("GenreID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.GenreID, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
 
     <div class="form-group">
-        @Html.LabelFor(model => model.GenreId, "GenreId", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.GenreId,"GenreId", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("GenreId", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.GenreId, "", new { @class = "text-danger" })
@@ -26,7 +57,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.AuthorId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.AuthorId,"AuthorId", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.AuthorId, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.AuthorId, "", new { @class = "text-danger" })
@@ -52,7 +83,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+
+            <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
             @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
         </div>
     </div>

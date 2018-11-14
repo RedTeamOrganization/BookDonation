@@ -300,11 +300,13 @@
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\Transactions\Edit.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\RequestABook.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Home\DonateBook.cshtml" />
     <Content Include="Views\Home\DonateSuccess.cshtml" />
-    <Content Include="Views\Home\Cart.cshtml" />
+=======
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\RequestABook.cshtml" />
+>>>>>>> a4651da08f143d0705037e478ffd83fd1da8b62b
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
