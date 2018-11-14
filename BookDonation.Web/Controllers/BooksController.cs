@@ -38,6 +38,7 @@ namespace BookDonation.Web.Controllers
         // GET: Books/Create
         public ActionResult Create()
         {
+            ViewBag.GenreId = new SelectList(db.Genre, "Id", "Name");
             return View();
         }
 
