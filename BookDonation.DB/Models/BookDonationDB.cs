@@ -25,6 +25,7 @@ namespace BookDonation.DB.Models
 
         public DbSet<Transactions> Transaction { get; set; }
 
+        
     }
 }
 
