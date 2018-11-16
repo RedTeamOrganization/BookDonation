@@ -325,6 +325,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BookDonation.Business\BookDonation.Business.csproj">
+      <Project>{277FB665-B89D-4156-AA56-51AE08AB63F8}</Project>
+      <Name>BookDonation.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookDonation.DB\BookDonation.DB.csproj">
       <Project>{7e93b268-8c99-4250-973a-709edd79681b}</Project>
       <Name>BookDonation.DB</Name>
