@@ -24,6 +24,8 @@ namespace BookDonation.Web.ViewModels
         public virtual byte[] Image { get; set; }
         [Required]
         public virtual int NumBookDonated { get; set; }
-
+        public virtual int QuantityAvailable { get; set; }
+        public virtual string QuantityReserved { get; set; }
+        public virtual DateTime PickUpDate { get; set; }
     }
 }

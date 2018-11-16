@@ -19,7 +19,7 @@
 </script>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 

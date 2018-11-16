@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookDonation.DB.Models.Books>
+﻿@model IEnumerable<BookDonation.Web.ViewModels.DonateVM>
 
 @{
     ViewBag.Title = "Index";
@@ -7,9 +7,9 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table" style="width: 1200px;">
     <tr>
         @*<th>
             @Html.DisplayNameFor(model => model.UserId)
@@ -56,7 +56,7 @@
             @Html.DisplayFor(modelItem => item.ISBN)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Image)
+           <img src="/Book/RetrieveImage/@item.Id" alt="" height=50 width=50 />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.QuantityAvailable)

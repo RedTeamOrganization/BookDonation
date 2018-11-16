@@ -120,6 +120,15 @@ namespace BookDonation.Web.Controllers
             return View();
         }
 
+        //[HttpPost]
+        public ActionResult PickUpDate()
+        { DateTime today = DateTime.Now;
+            ViewBag.Message = "Please Pick Up Your Book By: " + today;
+            return View();
+        }
+
+      
+
         public ActionResult Search()
         {
             return View();

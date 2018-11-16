@@ -7,17 +7,66 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookDonation.DB.Models;
+using BookDonation.Web.ViewModels;
+using BookDonation.Web.Repository;
 
 namespace BookDonation.Web.Controllers
 {
     public class BooksController : Controller
     {
         private BookDonationDB db = new BookDonationDB();
-
-        // GET: Books
+        [Route("Index")]
+        [HttpGet]
         public ActionResult Index()
         {
-            return View(db.Book.ToList());
+            var content = db.Book.Select(s => new
+            {
+                s.Id,
+                s.UserId,
+                s.GenreId,
+                s.AuthorId,
+                s.Title,
+                s.ISBN,
+                s.Image,
+                s.QuantityAvailable,
+                s.QuantityReserved
+
+            });
+            List<DonateVM> donateModel = content.Select(item => new DonateVM()
+            {
+                Id = item.Id,
+                //UserId =item.UserId,
+                Title = item.Title,
+                Image = item.Image,
+                ISBN = item.ISBN,
+                GenreId = item.GenreId,
+
+                AuthorId = item.AuthorId,
+                QuantityAvailable = item.QuantityAvailable,
+                QuantityReserved = item.QuantityReserved
+
+            }).ToList();
+            return View(donateModel);
+        }
+
+        public ActionResult RetrieveImage(int id)
+        {
+            byte[] cover = GetImageFromDataBase(id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public byte[] GetImageFromDataBase(int Id)
+        {
+            var q = from temp in db.Book where temp.Id == Id select temp.Image;
+            byte[] cover = q.First();
+            return cover;
         }
 
         // GET: Books/Details/5
@@ -35,30 +84,36 @@ namespace BookDonation.Web.Controllers
             return View(books);
         }
 
+
+
+
         // GET: Books/Create
-        public ActionResult Create()
-        {
-            ViewBag.GenreID = new SelectList(db.Genre, "Id", "Name");
-            ViewBag.ActionID = new SelectList(db.Action, "Id", "ActionName");
-            return View();
-        }
+        [HttpGet]
+    public ActionResult Create()
+    {
+        ViewBag.GenreID = new SelectList(db.Genre, "Id", "Name");
+        return View();
+    }
 
-        // POST: Books/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,GenreId,AuthorId,Title,ISBN,Image,QuantityAvailable,QuantityReserved")] Books books)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Book.Add(books);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+    [Route("Create")]
+    [HttpPost]
+    public ActionResult Create(/*[Bind(Include = "Title,GenreId,AuthorId,ISBN,Image,NumBookDonated")]*/ DonateVM model)
+    {
+        
 
-            return View(books);
+            //return View(donatevm);
+            HttpPostedFileBase file = Request.Files["ImageData"];
+        HomeRepository service = new HomeRepository();
+        int i = service.UploadImageInDataBase(file, model);
+        if (i == 1)
+        {
+            return RedirectToAction("Index");
         }
+        return View(model);
+
+    }
+
+
 
         // GET: Books/Edit/5
         public ActionResult Edit(int? id)
