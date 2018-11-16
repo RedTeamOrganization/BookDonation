@@ -40,6 +40,7 @@ namespace BookDonation.Web.Controllers
                 Image = item.Image,
                 ISBN = item.ISBN,
                 GenreId= item.GenreId,
+              
                 AuthorId=item.AuthorId
                 
             }).ToList();
@@ -192,7 +193,7 @@ namespace BookDonation.Web.Controllers
 
 
 
-        // GET: Movies/Cart/5
+        // GET: Books/Cart/5
         public ActionResult Cart(int? id)
         {
             if (id == null)
