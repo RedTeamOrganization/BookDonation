@@ -34,6 +34,7 @@ namespace BookDonation.Web.ViewModels
 
         public byte[] Image { get; set; }
         
+
         public virtual int QuantityAvailable { get; set; }
         public virtual string QuantityReserved { get; set; }
         public virtual DateTime PickUpDate { get; set; }
