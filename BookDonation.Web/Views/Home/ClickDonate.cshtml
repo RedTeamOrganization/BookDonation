@@ -1,0 +1,40 @@
+﻿@model BookDonation.DB.Models.Books
+
+<div>
+    <h4>Would you like to donate Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISBN)
+        </dd>
+
+        
+
+        
+
+    </dl>
+
+    <div>
+        <input type="button" value="Donate" onclick="location.href='@Url.Action("DonateSuccess", "Home", new { id = Model.Id })'" class="btn btn-default" />
+        <br />
+        @*@Html.ActionLink("Buy","Cart",new { id = Model.ID }))  Another way *@
+    </div>
+
+</div>
+<p>
+    
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

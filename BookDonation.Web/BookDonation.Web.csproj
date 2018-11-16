@@ -304,6 +304,7 @@
     <Content Include="Views\Home\RequestABook.cshtml" />
     <Content Include="Views\Home\DonateBook.cshtml" />
     <Content Include="Views\Home\DonateSuccess.cshtml" />
+    <Content Include="Views\Home\ClickDonate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

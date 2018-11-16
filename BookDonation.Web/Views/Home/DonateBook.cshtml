@@ -20,36 +20,36 @@
     }
 </script>
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm("DonateBook", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+ {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
+        <div class="form-horizontal">
 
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+          @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
 
-        <div class="form-group">
+         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", required = "required", title = "Title is requried" } })
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
-        </div>
+         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AuthorId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AuthorName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AuthorId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.AuthorName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AuthorId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GenreId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.genres.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("GenreId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.GenreId, "", new { @class = "text-danger" })
+                @Html.DropDownList("GenreName", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.genres.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -87,6 +87,7 @@
             </div>
         </div>
         <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-default" />
+        <input type="submit" value="Confirm Donate" onclick="location.href='@Url.Action("DonateSuccess", "Home")'" class="btn btn-default" />  
         <br />
     </div>
   }

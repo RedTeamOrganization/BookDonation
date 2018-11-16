@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookDonation.DB.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,21 +10,35 @@ namespace BookDonation.Web.ViewModels
     public class DonateVM
     {
         [Required]
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
         //[Required(ErrorMessage = "Username is required")]
         //[StringLength(50)]
         //public virtual int UserId { get; set; }
         [Required]
-        public virtual int GenreId { get; set; }
-        [Required(ErrorMessage = "Author name is required")]
-        public virtual int AuthorId{ get; set; }
-        [Required]
-        public virtual string Title { get; set; }
+        [Display(Name ="Genre")]
+        public int GenreId { get; set; }
 
-        public virtual string ISBN { get; set; }
-        public virtual byte[] Image { get; set; }
+        [Required(ErrorMessage = "Author name is required")]
+        public int AuthorId{ get; set; }
+
+        [Display(Name = "Author")]
+        public string AuthorName { get; set; }
+        public virtual Authors Authors { get; set; }
+
+        public string GenreName { get; set; }
+        public virtual Genres genres { get; set; }
         [Required]
-        public virtual int NumBookDonated { get; set; }
+        public string Title { get; set; }
+
+        public string ISBN { get; set; }
+
+        public byte[] Image { get; set; }
+        public int QuantityAvailable { get; set; }
+        public string QuantityReserved { get; set; }
+
+        [Required]
+        [Display(Name = "Qty Donated")]
+        public int NumBookDonated { get; set; }
 
     }
 }
