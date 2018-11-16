@@ -14,10 +14,10 @@
     <tr>
 
         <th>
-            <b>GenreId</b>
+            @Html.DisplayNameFor(model => model.GenreName)
         </th>
         <th>
-            <b>AuthorId</b>
+            @Html.DisplayNameFor(model => model.AuthorName)
         </th>
         <th>
             <b>Title</b>
@@ -40,10 +40,10 @@
 
 
         <td>
-            @Html.DisplayFor(modelItem => item.GenreId)
+            @Html.DisplayFor(modelItem => item.genres)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AuthorId)
+            @Html.DisplayFor(modelItem => item.Authors)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
