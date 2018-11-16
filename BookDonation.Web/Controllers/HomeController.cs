@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 using BookDonation.Web.ViewModels;
 using BookDonation.Web.Repository;
+using System.Net;
 
 namespace BookDonation.Web.Controllers
 {
@@ -115,26 +115,59 @@ namespace BookDonation.Web.Controllers
             return View();
         }
 
+
+        [HttpGet]
         public ActionResult Search()
         {
-            return View();
+            return View(new BookDonation.DB.Models.Books());
         }
+
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Search(string searchString)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Search(Books model)
         {
-            var books = from b in db.Book select b;
+            //List<Books> content = new List<Books>();
 
-            if (!string.IsNullOrEmpty(searchString))
+            //if (string.IsNullOrWhiteSpace(model.ISBN) == false)
+            //{
+            //   content  = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).ToList();
+            //}
+
+            var content = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).Select(s => new
             {
-                books = books.Where(s => s.Title.Contains(searchString));
-            }
-            return View(books);
+                s.Id,
+                s.UserId,
+                s.GenreId,
+                s.AuthorId,
+                s.Title,
+                s.ISBN,
+                s.Image,
+                s.QuantityAvailable,
+                s.QuantityReserved
+            });
+
+            List<DonateVM> donateModel = content.Select(item => new DonateVM()
+            {
+                Id = item.Id,
+                //UserId =item.UserId,
+                Title = item.Title,
+                Image = item.Image,
+                ISBN = item.ISBN,
+                GenreId = item.GenreId,
+
+                AuthorId = item.AuthorId
+
+            }).ToList();
+
+
+
+            return View("SearchResults", donateModel);
         }
 
 
-        // GET: Books/RequestABook
+
+        [Route("RequestABook")]
         [HttpGet]
         public ActionResult RequestABook()
         {
@@ -166,22 +199,37 @@ namespace BookDonation.Web.Controllers
 
         }
 
-        // POST: Books/RequestABook
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RequestABook([Bind(Include = "GenreId,AuthorId,Title,ISBN")] Books books)
+
+
+        // GET: Books/Cart/5
+        public ActionResult Cart(int? id)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Book.Add(books);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Books books = db.Book.Find(id);
+            if (books == null)
+            {
+                return HttpNotFound();
             }
 
-            return View(books);
+           DonateVM vm = new DonateVM();
+            vm.GenreId = books.GenreId;
+            vm.AuthorId = vm.AuthorId;
+            vm.Title = books.Title;
+            vm.ISBN = vm.ISBN;
+
+
+            return View(vm);
+
+
+            //Calculator cl = new Calculator();
+            //ViewBag.Tax = cl.CalTax(movie.Price);
+            //ViewBag.Total = cl.CalTotal(movie.Price);
+            //return View("~/Views/Movies/Cart.cshtml", movie);
         }
+
 
 
 

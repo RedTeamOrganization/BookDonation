@@ -2,9 +2,12 @@
 @{
     ViewBag.Title = "Request A Book";
 }
+
 <h2>Index of Available Books</h2>
+
 <table class="table" style="width: 1200px;">
     <tr>
+
         <th>
             <b>GenreId</b>
         </th>
@@ -17,39 +20,47 @@
         <th>
             <b>ISBN</b>
         </th>
-        <th>
+        @*<th>
             <b>NumBookDonated</b>
-        </th>
+        </th>*@
         <th>
             <b>Image</b>
         </th>
+
     </tr>
+
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.GenreId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumBookDonated)
-            </td>
-            <td>
-                <img src="/Home/RetrieveImage/@item.Id" alt="" height=50 width=50 />
-            </td>
-            <td>
-                
-                @Html.ActionLink("Cart", "Cart", new { id = item.Id }) 
-            </td>
-        </tr>
+    <tr>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.GenreId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISBN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumBookDonated)
+        </td>
+        <td>
+            <img src="/Home/RetrieveImage/@item.Id" alt="" height=50 width=50 />
+        </td>
+
+        <td>
+            
+            @Html.ActionLink("Cart", "Cart", new { id = item.Id }) 
+        </td>
+
+
+    </tr>
     }
 </table>
+
 
