@@ -119,43 +119,55 @@ namespace BookDonation.Web.Controllers
 
             return View();
         }
+
+
         [HttpGet]
         public ActionResult Search()
         {
-            var books = from b in db.Book select b;
-
-            //if (!string.IsNullOrEmpty(searchString))
-            //{
-            //    books = books.Where(s => s.Title.Contains(searchString));
-            //}
-
             return View(new BookDonation.DB.Models.Books());
         }
+
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult Search(Books model)
         {
-            ////Add code here
-            if (ModelState.IsValid)
+            //List<Books> content = new List<Books>();
+
+            //if (string.IsNullOrWhiteSpace(model.ISBN) == false)
+            //{
+            //   content  = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).ToList();
+            //}
+
+            var content = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).Select(s => new
             {
-                var book = new Books
-                {
+                s.Id,
+                s.UserId,
+                s.GenreId,
+                s.AuthorId,
+                s.Title,
+                s.ISBN,
+                s.Image,
+                s.QuantityAvailable,
+                s.QuantityReserved
+            });
 
-                    //GenreId = model.GenreId,
-                    //AuthorId = model.AuthorId,
-                    Genres = model.Genres,
-                    Authors = model.Authors,
-                    Title = model.Title,
-                    ISBN = model.ISBN,
-                    QuantityAvailable = model.QuantityAvailable
+            List<DonateVM> donateModel = content.Select(item => new DonateVM()
+            {
+                Id = item.Id,
+                //UserId =item.UserId,
+                Title = item.Title,
+                Image = item.Image,
+                ISBN = item.ISBN,
+                GenreId = item.GenreId,
 
-                };
-                db.Book.Add(book);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(model);
+                AuthorId = item.AuthorId
+
+            }).ToList();
+
+
+
+            return View("SearchResults", donateModel);
         }
 
 
