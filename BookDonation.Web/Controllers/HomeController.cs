@@ -141,7 +141,7 @@ namespace BookDonation.Web.Controllers
             //   content  = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).ToList();
             //}
 
-            var content = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).Select(s => new
+            var content = db.Book.Where(b => b.Title == model.Title.Trim()).Select(s => new
             {
                 s.Id,
                 s.UserId,
