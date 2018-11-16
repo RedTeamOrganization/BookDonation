@@ -118,8 +118,9 @@ namespace BookDonation.Web.Controllers
 
         //[HttpPost]
         public ActionResult PickUpDate()
-        { DateTime today = DateTime.Now;
-            ViewBag.Message = "Please Pick Up Your Book By: " + today;
+        { DateTime today = DateTime.Now.Date;
+         DateTime DueDate = DateTime.Now.AddDays(3);
+            ViewBag.Message = "Please Pick Up Your Book By: " + DueDate;
             return View();
         }
 
