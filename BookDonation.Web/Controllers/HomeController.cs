@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BookDonation.Web.ViewModels;
 using BookDonation.Web.Repository;
 using System.Net;
+using BookDonation.Business;
 
 namespace BookDonation.Web.Controllers
 {
@@ -115,14 +116,17 @@ namespace BookDonation.Web.Controllers
             return View();
         }
 
-        //[HttpPost]
-        public ActionResult PickUpDate()
-        { DateTime today = DateTime.Now;
-            ViewBag.Message = "Please Pick Up Your Book By: " + today;
-            return View();
+        [HttpPost]
+        public DateTime PickUpDate(DateTime date)
+        { DateTime today = DateTime.Today.AddDays(3);
+
+            /*  return DateTime.Now.AddDays(3)*/
+            return date.AddDays(3);
+        //       //View();
         }
 
-      
+
+       
 
         public ActionResult Search()
         {
@@ -141,7 +145,7 @@ namespace BookDonation.Web.Controllers
             //   content  = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).ToList();
             //}
 
-            var content = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).Select(s => new
+            var content = db.Book.Where(b => b.Title == model.Title.Trim()).Select(s => new
             {
                 s.Id,
                 s.UserId,
@@ -221,24 +225,26 @@ namespace BookDonation.Web.Controllers
                 return HttpNotFound();
             }
 
-           DonateVM vm = new DonateVM();
+            DonateVM vm = new DonateVM();
             vm.GenreId = books.GenreId;
             vm.AuthorId = vm.AuthorId;
             vm.Title = books.Title;
             vm.ISBN = vm.ISBN;
 
 
-            return View(vm);
-
-
             //Calculator cl = new Calculator();
             //ViewBag.Tax = cl.CalTax(movie.Price);
             //ViewBag.Total = cl.CalTotal(movie.Price);
             //return View("~/Views/Movies/Cart.cshtml", movie);
+
+           BusinessDays BookDdate = new BusinessDays();
+           var receivedDatedTime = DateTime.Now;
+            double workdays = 5;
+           DateTime PuDdate = DateTime.Now;
+            ViewBag.PuDdate = BusinessDays.GetDueDate(receivedDatedTime, workdays, PuDdate);
+            return View(vm);
+
         }
-
-
-
 
         public ActionResult Contact()
         {
