@@ -118,7 +118,7 @@ namespace BookDonation.Web.Controllers
 
             return View();
         }
-
+        [HttpGet]
         public ActionResult Search()
         {
             var books = from b in db.Book select b;
@@ -128,19 +128,37 @@ namespace BookDonation.Web.Controllers
             //    books = books.Where(s => s.Title.Contains(searchString));
             //}
 
-            return View(books);
+            return View(new BookDonation.DB.Models.Books());
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Search(string searchString)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Search(Books model)
         {
-            //Add code here
-            return View();
+            ////Add code here
+            if (ModelState.IsValid)
+            {
+                var book = new Books
+                {
+
+                    //GenreId = model.GenreId,
+                    //AuthorId = model.AuthorId,
+                    Genres = model.Genres,
+                    Authors = model.Authors,
+                    Title = model.Title,
+                    ISBN = model.ISBN,
+                    QuantityAvailable = model.QuantityAvailable
+
+                };
+                db.Book.Add(book);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
 
-      
+
         [Route("RequestABook")]
         [HttpGet]
         public ActionResult RequestABook()
