@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BookDonation.Web.ViewModels;
 using BookDonation.Web.Repository;
 using System.Net;
+using BookDonation.Business;
 
 namespace BookDonation.Web.Controllers
 {
@@ -186,24 +187,26 @@ namespace BookDonation.Web.Controllers
                 return HttpNotFound();
             }
 
-           DonateVM vm = new DonateVM();
+            DonateVM vm = new DonateVM();
             vm.GenreId = books.GenreId;
             vm.AuthorId = vm.AuthorId;
             vm.Title = books.Title;
             vm.ISBN = vm.ISBN;
 
 
-            return View(vm);
-
-
             //Calculator cl = new Calculator();
             //ViewBag.Tax = cl.CalTax(movie.Price);
             //ViewBag.Total = cl.CalTotal(movie.Price);
             //return View("~/Views/Movies/Cart.cshtml", movie);
+
+           BusinessDays BookDdate = new BusinessDays();
+           var receivedDatedTime = DateTime.Now;
+            double workdays = 5;
+           DateTime PuDdate = DateTime.Now;
+            ViewBag.PuDdate = BusinessDays.GetDueDate(receivedDatedTime, workdays, PuDdate);
+            return View(vm);
+
         }
-
-
-
 
         public ActionResult Contact()
         {

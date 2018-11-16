@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BookDonation.Business
+
 {
     public class BusinessDays
     {
-        public static DateTime GetDueDate(DateTime receivedDatedTime, double workdays)
+        public static DateTime GetDueDate(DateTime receivedDatedTime, double workdays, DateTime PuDdate)
         {
             DateTime dueDate = receivedDatedTime;
             if (dueDate.DayOfWeek == DayOfWeek.Sunday)
@@ -16,7 +17,10 @@ namespace BookDonation.Business
             else if (dueDate.DayOfWeek == DayOfWeek.Saturday)
                 dueDate = dueDate.AddDays(2);
             double totalDays = workdays + (2 * ((workdays + (int)dueDate.DayOfWeek - 1) / 5));
-            return dueDate.AddDays(totalDays);
+            workdays = 5;
+            PuDdate = dueDate.AddDays(totalDays);
+            return PuDdate;
+            //return dueDate.AddDays(totalDays);
         }
     }
 }
