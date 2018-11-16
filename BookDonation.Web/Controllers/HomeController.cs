@@ -24,6 +24,8 @@ namespace BookDonation.Web.Controllers
             {
                 s.Id,
                 s.UserId,
+                genreName = s.Genres.Name,
+                authorName = s.Authors.Name,
                 s.GenreId,
                 s.AuthorId,
                 s.Title,
@@ -41,10 +43,16 @@ namespace BookDonation.Web.Controllers
                 Image = item.Image,
                 ISBN = item.ISBN,
                 GenreId= item.GenreId,
-              
-                AuthorId=item.AuthorId
+                AuthorId=item.AuthorId,
+                GenreName = item.genreName,
+                AuthorName = item.authorName,
+                QuantityAvailable = item.QuantityAvailable,
+                QuantityReserved = item.QuantityReserved
+                
+                
                 
             }).ToList();
+            
             return View(donateModel);
         }
 
@@ -70,37 +78,15 @@ namespace BookDonation.Web.Controllers
         [HttpGet]
         public ActionResult DonateBook()
         {
-            ViewBag.GenreID = new SelectList(db.Genre, "Id", "Name");
+            ViewBag.GenreName = new SelectList(db.Genre, "Id", "Name");
             return View();
         }
 
         [Route("Donate")]
         [HttpPost]
-        public ActionResult DonateBook([Bind(Include = "Title,GenreId,AuthorId,ISBN,Image,NumBookDonated")] DonateVM model)
+        public ActionResult DonateBook(DonateVM model)
         {
-            if (ModelState.IsValid)
-            {
-                //var userId = db.Book.Find(User.Identity.Name);
-
-                var book = new Books
-                {
-
-                    GenreId = model.GenreId,
-                    AuthorId = model.AuthorId,
-                    Title = model.Title,
-                    ISBN = model.ISBN,
-                    Image = model.Image,
-                    QuantityAvailable = model.NumBookDonated
-
-                };
-
-                //db..Add(donatevm);
-                db.Book.Add(book);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            //return View(donatevm);
+            
             HttpPostedFileBase file = Request.Files["ImageData"];
             HomeRepository service = new HomeRepository();
             int i = service.UploadImageInDataBase(file, model);
@@ -112,6 +98,15 @@ namespace BookDonation.Web.Controllers
             
         }
 
+        public ActionResult ClickDonate()
+        {
+            return View();
+        }
+        public ActionResult DonateSuccess()
+        {
+            return View();
+        }
+
 
 
         public ActionResult About()
@@ -121,26 +116,65 @@ namespace BookDonation.Web.Controllers
             return View();
         }
 
-        public ActionResult Search()
-        {
+        //[HttpPost]
+        public ActionResult PickUpDate()
+        { DateTime today = DateTime.Now;
+            ViewBag.Message = "Please Pick Up Your Book By: " + today;
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Search(string searchString)
-        {
-            var books = from b in db.Book select b;
+      
 
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                books = books.Where(s => s.Title.Contains(searchString));
-            }
-            return View(books);
+        public ActionResult Search()
+        {
+            return View(new BookDonation.DB.Models.Books());
         }
 
 
-      
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Search(Books model)
+        {
+            //List<Books> content = new List<Books>();
+
+            //if (string.IsNullOrWhiteSpace(model.ISBN) == false)
+            //{
+            //   content  = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).ToList();
+            //}
+
+            var content = db.Book.Where(b => b.ISBN == model.ISBN.Trim()).Select(s => new
+            {
+                s.Id,
+                s.UserId,
+                s.GenreId,
+                s.AuthorId,
+                s.Title,
+                s.ISBN,
+                s.Image,
+                s.QuantityAvailable,
+                s.QuantityReserved
+            });
+
+            List<DonateVM> donateModel = content.Select(item => new DonateVM()
+            {
+                Id = item.Id,
+                //UserId =item.UserId,
+                Title = item.Title,
+                Image = item.Image,
+                ISBN = item.ISBN,
+                GenreId = item.GenreId,
+
+                AuthorId = item.AuthorId
+
+            }).ToList();
+
+
+
+            return View("SearchResults", donateModel);
+        }
+
+
+
         [Route("RequestABook")]
         [HttpGet]
         public ActionResult RequestABook()
@@ -170,6 +204,7 @@ namespace BookDonation.Web.Controllers
 
             }).ToList();
             return View(donateModel);
+
         }
 
 

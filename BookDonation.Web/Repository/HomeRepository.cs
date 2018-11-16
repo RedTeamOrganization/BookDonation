@@ -18,12 +18,14 @@ namespace BookDonation.Web.Repository
             {
                 Id = donateModel.Id,
                 //UserId =donateModel.UserId,
-                GenreId =donateModel.GenreId,
-                AuthorId =donateModel.AuthorId,
+                Genres = db.Genre.Find(donateModel.GenreId),
+                Authors = db.Author.Find(donateModel.AuthorId),
+                
+                
+                
                 Title = donateModel.Title,
                 ISBN = donateModel.ISBN,
                 QuantityAvailable =donateModel.NumBookDonated,
-                
                 Image = donateModel.Image
             };
             db.Book.Add(Content);

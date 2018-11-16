@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BookDonation.Web.ViewModels.DonateVM>
+
+@*@model BookDonation.DB.Models.Books*@
+
+
+@{
+    ViewBag.Title = "SearchResults";
+}
+
+<h2>SearchResults</h2>
+
+<p>
+    @Html.ActionLink("Donate New Book", "DonateBook", null, new { @class = "btn btn-primary" })
+</p>
+
+<br />
+<table class="table" style="width: 1200px;">
+    <tr>
+
+        <th>
+            <b>Genre</b>
+        </th>
+        <th>
+            <b>Author</b>
+        </th>
+        <th>
+            <b>Title</b>
+        </th>
+        <th>
+            <b>ISBN</b>
+        </th>
+        @*<th>
+                <b>NumBookDonated</b>
+            </th>
+            <th>
+                <b>Image</b>
+            </th>*@
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.GenreId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.NumBookDonated)
+                </td>
+                <td>
+                    <img src="/Home/RetrieveImage/@item.Id" alt="" height=50 width=50 />
+                </td>*@
+
+
+        </tr>
+    }
+</table>

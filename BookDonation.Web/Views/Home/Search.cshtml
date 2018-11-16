@@ -1,23 +1,48 @@
 ﻿@model BookDonation.DB.Models.Books
+@*@model IEnumerable<BookDonation.Web.ViewModels.DonateVM>*@
 
 @{
+    /**/
+
     ViewBag.Title = "Search";
 }
 
 <h2>Search</h2>
 
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+@using (Html.BeginForm("Search", "Home", FormMethod.Post))
 {
     //the following are search options
     <b> Search Option: </b>
-    @Html.RadioButton("option", "Title")
-    <text>Title</text>
-    @Html.RadioButton("option", "Author")
-    <text> Author </text>
-    @Html.RadioButton("option", "ISBN") <text>ISBN</text>
-    @Html.TextBox("search") 
-    <input type = "submit"    
-     name = "submit"
-     value = "Search" />
+
+    @*@Html.RadioButton("option", "Title") <text>Title</text>
+
+        @Html.RadioButton("option", "Author") <text> Author </text>
+
+        @Html.RadioButton("option", "ISBN") <text>ISBN</text>*@
+
+    @Html.LabelFor(m => m.Authors)
+    @Html.TextBoxFor(m => m.Authors)
+
+    @Html.LabelFor(m => m.Title)
+    @Html.TextBoxFor(m => m.Title)
+
+    @Html.LabelFor(m => m.ISBN)
+    @Html.TextBoxFor(m => m.ISBN)
+
+    @Html.LabelFor(m => m.Genres)
+    @Html.TextBoxFor(m => m.Genres)
+
+    @*<input type="submit"
+        name="submit"
+        value="Search" />*@
+
+    <input type="submit" value="Search" onclick="location.href='@Url.Action("Search","Books",new { id = Model.Id })'" />
+
+    @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="RequestABook" class="btn btn-default" />
+                <input type="button" value="Search" onclick="location.href='@Url.Action("Index","Books",new { id = Model.Id })'" />
+            </div>
+        </div>*@
 } 

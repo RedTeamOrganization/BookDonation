@@ -9,7 +9,7 @@
 
 <h2>Cart</h2>
 
-<h3>Are you sure you want to add this to the Cart?</h3>
+<h3>Are you sure you want to request this Book?</h3>
 <div>
     <h4>Request A Book</h4>
     <hr />
@@ -47,6 +47,13 @@
             @Html.DisplayFor(model => model.ISBN)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.PickUpDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUpDate)
+        </dd>
 
         @*<dt>
             @Html.DisplayName("Sales Tax")
@@ -72,7 +79,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Checkout" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "Index", "PickUpDate")
         </div>
     }
 </div>
