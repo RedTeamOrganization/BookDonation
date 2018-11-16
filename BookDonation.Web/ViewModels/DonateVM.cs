@@ -33,11 +33,8 @@ namespace BookDonation.Web.ViewModels
         public string ISBN { get; set; }
 
         public byte[] Image { get; set; }
-        public int QuantityAvailable { get; set; }
-        public string QuantityReserved { get; set; }
+        
 
-        [Required]
-        public virtual int NumBookDonated { get; set; }
         public virtual int QuantityAvailable { get; set; }
         public virtual string QuantityReserved { get; set; }
         public virtual DateTime PickUpDate { get; set; }

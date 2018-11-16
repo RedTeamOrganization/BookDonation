@@ -2,43 +2,52 @@
 using BookDonation.Web.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.ModelBinding;
+//using System.Web.ModelBinding;
 
 namespace BookDonation.Web.Repository
 {
     public class HomeRepository
     {
         private readonly BookDonationDB db = new BookDonationDB();
-        public int UploadImageInDataBase(HttpPostedFileBase file,  DonateVM donateModel)
+
+        public int UploadImageInDataBase(HttpPostedFileBase file, DonateVM donateModel)
         {
-            donateModel.Image = ConvertToBytes(file);
-            var Content = new Books
+            int i;
+            var BookExists = db.Book.Where(b => b.Title == donateModel.Title).First();
+
+            if (BookExists != null)
             {
-                Id = donateModel.Id,
-                //UserId =donateModel.UserId,
-                Genres = db.Genre.Find(donateModel.GenreId),
-                Authors = db.Author.Find(donateModel.AuthorId),
-                
-                
-                
-                Title = donateModel.Title,
-                ISBN = donateModel.ISBN,
-                QuantityAvailable =donateModel.NumBookDonated,
-                Image = donateModel.Image
-            };
-            db.Book.Add(Content);
-            int i = db.SaveChanges();
-            if (i == 1)
-            {
-                return 1;
+                BookExists.QuantityAvailable += donateModel.NumBookDonated;
+                db.Entry(BookExists).State = EntityState.Modified;
+                i = db.SaveChanges();
             }
             else
             {
-                return 0;
+                donateModel.Image = ConvertToBytes(file);
+
+                var Content = new Books
+                {
+                    Id = donateModel.Id,
+                    //UserId =donateModel.UserId,
+                    Genres = db.Genre.Find(donateModel.GenreId),
+                    Authors = db.Author.Find(donateModel.AuthorId),
+
+                    Title = donateModel.Title,
+                    ISBN = donateModel.ISBN,
+                    QuantityAvailable = donateModel.NumBookDonated,
+                    Image = donateModel.Image
+                };
+
+                db.Book.Add(Content);
+                i = db.SaveChanges();
             }
 
+            return i;
         }
 
         public byte[] ConvertToBytes(HttpPostedFileBase image)
@@ -48,5 +57,6 @@ namespace BookDonation.Web.Repository
             imageBytes = reader.ReadBytes((int)image.ContentLength);
             return imageBytes;
         }
+
     }
 }
