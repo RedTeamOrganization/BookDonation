@@ -1,4 +1,24 @@
 ﻿@model BookDonation.Web.ViewModels.DonateVM
 
-<h2>Thank you for donating the Book</h2>
-<h4>Your donation was greatly appreciated and will help us grow our Book Exchange system</h4>
+
+@{
+    Random rnd = new Random();
+    int number = rnd.Next(150000, 650000);
+    ViewBag.Number = number;
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<a href="#" class="btn btn-success btn-lg">
+    <span class="glyphicon glyphicon-print"></span> Print Receipt
+</a>
+
+<h2 style="color :red">Your Confirmation Number is :  <b>@ViewBag.Number</b></h2>
+<h4 style="color :black">Thank you for donating the Book.</h4>
+<h4>Your donation was greatly appreciated and will help us grow our Book Exchange system.</h4>
+
+
+<input type="button" value="Home" onclick="location.href='@Url.Action("About", "Home")'" class="btn btn-default" />

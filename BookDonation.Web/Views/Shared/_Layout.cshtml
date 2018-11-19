@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - RED TEAM BOOK DONATION SYSTEM</title>
+    <title class="name"  >@ViewBag.Title - RED TEAM BOOK EXCHANGE SYSTEM</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -17,10 +18,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink( "Report", "Index", "Books",new { area = "" },new { @class = "navbar-brand" })
+                @Html.ActionLink("Book Inventory", "Index", "Books", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" >
                     <li>@Html.ActionLink("About", "About", "Home")</li>
 
                     <li>@Html.ActionLink("Request a Book", "RequestABook", "Home")</li>
@@ -32,11 +33,11 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="background-color:lightcyan">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - RedTeamOrganization</p>
+            <p class="modal-footer" style="color :red">&copy; @DateTime.Now.Year - RedTeamOrganization</p>
         </footer>
     </div>
 

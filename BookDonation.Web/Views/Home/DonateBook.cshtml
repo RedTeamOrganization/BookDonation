@@ -5,8 +5,8 @@
     ViewBag.Title = "RED TEAM BOOK EXCHANGE SYSTEM";
 }
 
-<h2>@ViewBag.Title</h2>
-<h4>Donate Book</h4>
+<h2 style="color :red">@ViewBag.Title</h2>
+<h4><b>Donate Book</b></h4>
 
 <script src="~/ckeditor/ckeditor.js"></script>
 <script src="~/ckeditor/adapters/jquery.js"></script>
@@ -87,7 +87,7 @@
             </div>
         </div>
         <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-default" />
-        <input type="submit" value="Confirm Donate" onclick="location.href='@Url.Action("DonateSuccess", "Home")'" class="btn btn-default" />  
+        @*<input type="submit" value="Confirm Donate" onclick="location.href='@Url.Action("DonateSuccess", "Home")'" class="btn btn-default" />*@  
         <br />
     </div>
   }

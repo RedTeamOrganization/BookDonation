@@ -92,7 +92,8 @@ namespace BookDonation.Web.Controllers
             int i = service.UploadImageInDataBase(file, model);
             if (i == 1)
             {
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("DonateSuccess");
             }
             return View(model);
             
@@ -122,7 +123,8 @@ namespace BookDonation.Web.Controllers
 
             /*  return DateTime.Now.AddDays(3)*/
             return date.AddDays(3);
-        //       //View();
+            //       //View();
+           
         }
 
 

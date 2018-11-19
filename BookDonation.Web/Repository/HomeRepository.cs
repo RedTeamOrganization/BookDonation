@@ -40,6 +40,7 @@ namespace BookDonation.Web.Repository
                     Title = donateModel.Title,
                     ISBN = donateModel.ISBN,
                     QuantityAvailable = donateModel.NumBookDonated,
+                    QuantityReserved = "No",
                     Image = donateModel.Image
                 };
 
