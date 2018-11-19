@@ -118,8 +118,8 @@ namespace BookDonation.Web.Controllers
 
         //[HttpPost]
         public ActionResult PickUpDate()
-        { DateTime today = DateTime.Now.Date;
-         DateTime DueDate = DateTime.Now.AddDays(3);
+        { DateTime today = DateTime.Today;
+         DateTime DueDate = DateTime.Today.AddDays(3);
             ViewBag.Message = "Please Pick Up Your Book By: " + DueDate;
             return View();
         }
@@ -229,18 +229,12 @@ namespace BookDonation.Web.Controllers
             vm.AuthorId = vm.AuthorId;
             vm.Title = books.Title;
             vm.ISBN = vm.ISBN;
-
-
-            //Calculator cl = new Calculator();
-            //ViewBag.Tax = cl.CalTax(movie.Price);
-            //ViewBag.Total = cl.CalTotal(movie.Price);
-            //return View("~/Views/Movies/Cart.cshtml", movie);
-
+       
            BusinessDays BookDdate = new BusinessDays();
            var receivedDatedTime = DateTime.Now;
-            double workdays = 5;
-           DateTime PuDdate = DateTime.Now;
-            ViewBag.PuDdate = BusinessDays.GetDueDate(receivedDatedTime, workdays, PuDdate);
+            double workdays = 2;
+           DateTime PickUpDueDate = DateTime.Now;
+            ViewBag.PickUpDueDate = BusinessDays.GetDueDate(receivedDatedTime, workdays, PickUpDueDate);
             return View(vm);
 
         }
