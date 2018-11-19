@@ -246,6 +246,11 @@ namespace BookDonation.Web.Controllers
 
         }
 
+        public ActionResult CheckOut()
+        {
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "CONTACT US";
