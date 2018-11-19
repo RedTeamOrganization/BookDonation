@@ -9,7 +9,7 @@ namespace BookDonation.Business
 {
     public class BusinessDays
     {
-        public static DateTime GetDueDate(DateTime receivedDatedTime, double workdays, DateTime PuDdate)
+        public static DateTime GetDueDate(DateTime receivedDatedTime, double workdays, DateTime PickUpDueDate)
         {
             DateTime dueDate = receivedDatedTime;
             if (dueDate.DayOfWeek == DayOfWeek.Sunday)
@@ -18,8 +18,8 @@ namespace BookDonation.Business
                 dueDate = dueDate.AddDays(2);
             double totalDays = workdays + (2 * ((workdays + (int)dueDate.DayOfWeek - 1) / 5));
             workdays = 5;
-            PuDdate = dueDate.AddDays(totalDays);
-            return PuDdate;
+            PickUpDueDate = dueDate.AddDays(totalDays);
+            return PickUpDueDate;
             //return dueDate.AddDays(totalDays);
         }
     }

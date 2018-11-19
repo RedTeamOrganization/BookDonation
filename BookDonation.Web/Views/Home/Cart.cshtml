@@ -52,7 +52,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PickUpDate)
+            @ViewBag.PickUpDueDate
         </dd>
 
         @*<dt>
@@ -77,6 +77,13 @@
     {
         @Html.AntiForgeryToken()
 
+    <div class="form-actions no-color">
+        @*<input type="submit" value="Check Out" class="btn btn-default" /> |*@
+        <input type="button" value="Check Out" onclick="location.href='@Url.Action("CheckOut", "Home")'" class="btn btn-default" />
+       @*@Html.ActionLink("Request a Book", "RequestABook",  "Home")*@ 
+      
+        @Html.ActionLink("Back to List", "Index", "PickUpDate")
+    </div>
         <div class="form-actions no-color">
             <input type="submit" value="Checkout" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index", "Books")
