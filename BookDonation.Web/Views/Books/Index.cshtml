@@ -14,9 +14,9 @@
 <h4><b>Book Inventory</b></h4>
 
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
-</p>
+</p>*@
 <table class="table" style="width: 1200px;">
     <tr>
         @*<th>
@@ -73,11 +73,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.QuantityReserved)
             </td>
-            <td>
+            @*<td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            </td>*@
         </tr>
     }
 

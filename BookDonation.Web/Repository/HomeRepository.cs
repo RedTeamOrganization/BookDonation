@@ -18,24 +18,31 @@ namespace BookDonation.Web.Repository
         public int UploadImageInDataBase(HttpPostedFileBase file, DonateVM donateModel)
         {
             int i;
-            var BookExists = db.Book.Where(b => b.Title == donateModel.Title).First();
+            Books existingBook = null;
+            existingBook = db.Book.Where(b => b.Title == donateModel.Title).FirstOrDefault();
 
-            if (BookExists != null)
+            
+
+            if (existingBook != null)
             {
-                BookExists.QuantityAvailable += donateModel.NumBookDonated;
-                db.Entry(BookExists).State = EntityState.Modified;
+                existingBook.QuantityAvailable += donateModel.NumBookDonated;
+                db.Entry(existingBook).State = EntityState.Modified;
                 i = db.SaveChanges();
             }
             else
             {
                 donateModel.Image = ConvertToBytes(file);
-
+                //Books GenreId = db.Book.Where(s => s.GenreId == donateModel.GenreId).FirstOrDefault();
+                
                 var Content = new Books
                 {
                     Id = donateModel.Id,
                     //UserId =donateModel.UserId,
+                    //Subject sub = ctx.Subjects.FirstOrDefault(s => s.SubjectId == 202);
+                    
                     Genres = db.Genre.Find(donateModel.GenreId),
                     Authors = db.Author.Find(donateModel.AuthorId),
+                    //GenreId = db.Genre.Find(donateModel.GenreName).Id,
 
                     Title = donateModel.Title,
                     ISBN = donateModel.ISBN,
