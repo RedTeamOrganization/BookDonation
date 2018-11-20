@@ -7,7 +7,7 @@
 }
 
 <h2 style="color :red">@ViewBag.Title</h2>
-<h4><b>Request Book</b></h4>
+<h4><b>Request A Book</b></h4>
 
 <table class="table" style="width: 1200px;">
     <tr>
@@ -59,7 +59,7 @@
 
             <td>
 
-                @Html.ActionLink("Cart", "Cart", new { id = item.Id })
+                @Html.ActionLink("Request Book", "Cart", new { id = item.Id })
             </td>
         </tr>      
     }

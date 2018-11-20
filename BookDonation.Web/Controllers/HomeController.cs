@@ -8,6 +8,8 @@ using BookDonation.Web.ViewModels;
 using BookDonation.Web.Repository;
 using System.Net;
 using BookDonation.Business;
+using System.Data.Entity;
+using static BookDonation.Web.ViewModels.DonateVM;
 
 namespace BookDonation.Web.Controllers
 {
@@ -75,6 +77,8 @@ namespace BookDonation.Web.Controllers
             byte[] cover = q.First();
             return cover;
         }
+
+
         [HttpGet]
         public ActionResult DonateBook()
         {
@@ -92,7 +96,6 @@ namespace BookDonation.Web.Controllers
             int i = service.UploadImageInDataBase(file, model);
             if (i == 1)
             {
-                //return RedirectToAction("Index");
                 return RedirectToAction("DonateSuccess");
             }
             return View(model);
@@ -118,12 +121,12 @@ namespace BookDonation.Web.Controllers
         }
 
         //[HttpPost]
-        public ActionResult PickUpDate()
-        { DateTime today = DateTime.Today;
-         DateTime DueDate = DateTime.Today.AddDays(3);
-            ViewBag.Message = "Please Pick Up Your Book By: " + DueDate;
-            return View();
-        }
+        //public ActionResult PickUpDate()
+        //{ DateTime today = DateTime.Now.Date;
+        // DateTime DueDate = DateTime.Now.AddDays(3);
+        //    ViewBag.Message = "Please Pick Up Your Book By: " + DueDate;
+        //    return View();
+        //}
 
 
        
@@ -182,6 +185,8 @@ namespace BookDonation.Web.Controllers
         [HttpGet]
         public ActionResult RequestABook()
         {
+
+
             var content = db.Book.Select(s => new
             {
                 s.Id,
@@ -207,8 +212,7 @@ namespace BookDonation.Web.Controllers
 
             }).ToList();
             return View(donateModel);
-
-        }
+            }
 
 
 
@@ -219,21 +223,43 @@ namespace BookDonation.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Books books = db.Book.Find(id);
-            if (books == null)
+
+            //FIND book by bookID
+            Books bookRec = db.Book.Find(id);
+            if (bookRec == null)
             {
-                return HttpNotFound();
+                return HttpNotFound();  //replace with user friendly message, NOT 404 NOT FOUND
             }
 
             DonateVM vm = new DonateVM();
-            vm.GenreId = books.GenreId;
-            vm.AuthorId = vm.AuthorId;
-            vm.Title = books.Title;
-            vm.ISBN = vm.ISBN;
-       
-            return View(vm);
+            vm.GenreId = bookRec.GenreId;
+            vm.AuthorId = bookRec.AuthorId;
+            vm.Title = bookRec.Title;
+            vm.ISBN = bookRec.ISBN;
+            vm.Id = bookRec.Id;
 
-        }
+            //Decrment the QTY Available
+            bookRec.QuantityAvailable -= 1;
+            vm.QuantityAvailable = bookRec.QuantityAvailable;
+            //vm.QuantityAvailable -= vm.QuantityAvailable;
+
+            //INcrement the QTY Reserved
+           // bookRec.QuantityReserved.ToString +=;
+
+            vm.QuantityReserved = bookRec.QuantityReserved;
+            //Update the record
+            db.Entry(bookRec).State = EntityState.Modified;
+            db.SaveChanges();
+           
+            //ViewBag.PickUpDueDate = BusinessDays.GetDueDate(receivedDatedTime, workdays, PickUpDueDate);
+            return View(vm);           
+       }
+
+     
+
+
+
+
 
         public ActionResult CheckOut()
         {

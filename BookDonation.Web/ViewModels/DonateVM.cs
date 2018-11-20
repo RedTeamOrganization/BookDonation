@@ -41,5 +41,20 @@ namespace BookDonation.Web.ViewModels
         [Display(Name = "Qty Donated")]
         public int NumBookDonated { get; set; }
 
+
+        
+        public class BookModel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+
+            public int DecrementValue { get; set; }
+        }
+
+        public class DecrementBookCountModel 
+        {
+            public int DecrementValue { get; set; }
+            public int Id { get; set; }
+        }
     }
 }
