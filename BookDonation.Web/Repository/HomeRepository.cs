@@ -18,12 +18,13 @@ namespace BookDonation.Web.Repository
         public int UploadImageInDataBase(HttpPostedFileBase file, DonateVM donateModel)
         {
             int i;
-            var BookExists = db.Book.Where(b => b.Title == donateModel.Title).First();
+            Books existingBook = null;
+            existingBook = db.Book.Where(b => b.Title == donateModel.Title).FirstOrDefault();
 
-            if (BookExists != null)
+            if (existingBook != null)
             {
-                BookExists.QuantityAvailable += donateModel.NumBookDonated;
-                db.Entry(BookExists).State = EntityState.Modified;
+                existingBook.QuantityAvailable += donateModel.NumBookDonated;
+                db.Entry(existingBook).State = EntityState.Modified;
                 i = db.SaveChanges();
             }
             else
@@ -50,6 +51,7 @@ namespace BookDonation.Web.Repository
 
             return i;
         }
+
 
         public byte[] ConvertToBytes(HttpPostedFileBase image)
         {
