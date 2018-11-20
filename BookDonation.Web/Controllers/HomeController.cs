@@ -231,17 +231,17 @@ namespace BookDonation.Web.Controllers
             vm.Title = books.Title;
             vm.ISBN = vm.ISBN;
        
-           BusinessDays BookDdate = new BusinessDays();
-           var receivedDatedTime = DateTime.Now;
-            double workdays = 2;
-           DateTime PickUpDueDate = DateTime.Now;
-            ViewBag.PickUpDueDate = BusinessDays.GetDueDate(receivedDatedTime, workdays, PickUpDueDate);
             return View(vm);
 
         }
 
         public ActionResult CheckOut()
         {
+            BusinessDays BookDdate = new BusinessDays();
+            var receivedDatedTime = DateTime.Now;
+            double workdays = 2;
+            DateTime PickUpDueDate = DateTime.Now;
+            ViewBag.PickUpDueDate = BusinessDays.GetDueDate(receivedDatedTime, workdays, PickUpDueDate);
             return View();
         }
 
