@@ -17,6 +17,8 @@ namespace BookDonation.Web.ViewModels
         [Required]
         [Display(Name ="Genre")]
         public int GenreId { get; set; }
+        public string GenreName { get; set; }
+        public virtual Genres genres { get; set; }
 
         [Required(ErrorMessage = "Author name is required")]
         public int AuthorId{ get; set; }
@@ -25,8 +27,7 @@ namespace BookDonation.Web.ViewModels
         public string AuthorName { get; set; }
         public virtual Authors Authors { get; set; }
 
-        public string GenreName { get; set; }
-        public virtual Genres genres { get; set; }
+        
         [Required]
         public string Title { get; set; }
 

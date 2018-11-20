@@ -12,9 +12,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-<a href="#" class="btn btn-success btn-lg">
+@*<a href="#" class="btn btn-success btn-lg">
     <span class="glyphicon glyphicon-print"></span> Print Receipt
-</a>
+</a>*@
+
+<button onclick="myFunction()" class="btn btn-success btn-lg" >
+    <span class="glyphicon glyphicon-print"></span> Print Receipt</button>
+
+<script>
+    function myFunction() {
+        window.print();
+    }
+</script>
 
 <h2 style="color :red">Your Confirmation Number is :  <b>@ViewBag.Number</b></h2>
 <h4 style="color :black">Thank you for donating the Book.</h4>

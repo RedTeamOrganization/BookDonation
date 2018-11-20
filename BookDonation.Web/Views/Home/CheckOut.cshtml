@@ -5,12 +5,11 @@
 
 <h2>Check Out</h2>
 
-<h2>
-    Thank you for requesting a book from the RED TEAM BOOK EXCHANGE SYSTEM.  You have three (3) days to pick up your book from: <br /></h2>
-   
-<h4> 2415 WoodLand Ave<br />
-    Cleveland, OH, 44115<br />
-</h4>
-@Html.ActionLink("Request Another Book", "RequestABook", "Home") |
+<h2>Thank you for requesting a book from RED TEAM BOOK DONATION SYSTEM</h2>
+<p><b>Please pick up your book by:</b></p>
+<dd>
+    @ViewBag.PickUpDueDate
+</dd>
+@Html.ActionLink("Request Another Book", "RequestABook", "Home")
 
-@Html.ActionLink("Back to List", "Index", "Books")
+@Html.ActionLink("Back to List", "Index", "PickUpDate")

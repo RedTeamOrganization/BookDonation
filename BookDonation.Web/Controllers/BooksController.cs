@@ -32,6 +32,23 @@ namespace BookDonation.Web.Controllers
                 s.QuantityReserved
 
             });
+
+            //var content = db.Book.Select(s => new
+            //{
+            //    s.Id,
+            //    s.UserId,
+            //    genreName = s.Genres.Name,
+            //    authorName = s.Authors.Name,
+            //    s.GenreId,
+            //    s.AuthorId,
+            //    s.Title,
+            //    s.ISBN,
+            //    s.Image,
+            //    s.QuantityAvailable,
+            //    s.QuantityReserved
+
+            //});
+
             List<DonateVM> donateModel = content.Select(item => new DonateVM()
             {
                 Id = item.Id,
@@ -42,13 +59,22 @@ namespace BookDonation.Web.Controllers
                 GenreId = item.GenreId,
 
                 AuthorId = item.AuthorId,
-                QuantityAvailable = item.QuantityAvailable,
+                
+
+                //AuthorId = item.AuthorId,
+                //genres = db.Genre.Find(item.GenreId),
+                //Authors = db.Author.Find(item.AuthorId),
+                //Subject sub = ctx.Subjects.FirstOrDefault(s => s.SubjectId == 202)
+                
+            QuantityAvailable = item.QuantityAvailable,
                 QuantityReserved = item.QuantityReserved
 
             }).ToList();
+
+            
             return View(donateModel);
         }
-
+         
         public ActionResult RetrieveImage(int id)
         {
             byte[] cover = GetImageFromDataBase(id);

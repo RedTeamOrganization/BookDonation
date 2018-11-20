@@ -21,6 +21,8 @@ namespace BookDonation.Web.Repository
             Books existingBook = null;
             existingBook = db.Book.Where(b => b.Title == donateModel.Title).FirstOrDefault();
 
+            
+
             if (existingBook != null)
             {
                 existingBook.QuantityAvailable += donateModel.NumBookDonated;
@@ -30,13 +32,17 @@ namespace BookDonation.Web.Repository
             else
             {
                 donateModel.Image = ConvertToBytes(file);
-
+                //Books GenreId = db.Book.Where(s => s.GenreId == donateModel.GenreId).FirstOrDefault();
+                
                 var Content = new Books
                 {
                     Id = donateModel.Id,
                     //UserId =donateModel.UserId,
+                    //Subject sub = ctx.Subjects.FirstOrDefault(s => s.SubjectId == 202);
+                    
                     Genres = db.Genre.Find(donateModel.GenreId),
                     Authors = db.Author.Find(donateModel.AuthorId),
+                    //GenreId = db.Genre.Find(donateModel.GenreName).Id,
 
                     Title = donateModel.Title,
                     ISBN = donateModel.ISBN,

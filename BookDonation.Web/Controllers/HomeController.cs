@@ -263,6 +263,11 @@ namespace BookDonation.Web.Controllers
 
         public ActionResult CheckOut()
         {
+            BusinessDays BookDdate = new BusinessDays();
+            var receivedDatedTime = DateTime.Now;
+            double workdays = 2;
+            DateTime PickUpDueDate = DateTime.Now;
+            ViewBag.PickUpDueDate = BusinessDays.GetDueDate(receivedDatedTime, workdays, PickUpDueDate);
             return View();
         }
 
